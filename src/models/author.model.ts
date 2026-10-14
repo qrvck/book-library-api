@@ -1,6 +1,5 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../app.ts";
-import { Book } from "./book.model.ts";
+import { sequelize } from "../config/database.ts";
 
 const Author = sequelize.define("author", {
   id: {
@@ -29,6 +28,6 @@ const Author = sequelize.define("author", {
   },
 });
 
-Author.hasMany(Book);
+// Author.hasMany(Book);
 
 export { Author };

@@ -1,15 +1,27 @@
-import { Sequelize } from "sequelize";
+import express from "express";
+import { sequelize } from "./config/database.ts";
+import { Author } from "./models/author.model.ts";
+import { Book } from "./models/book.model.ts";
 
-const sequelize = new Sequelize("", "", "", {
-  dialect: "postgres",
+const app = express();
+const host = "127.0.0.1";
+const port = 7001;
+
+Author.hasMany(Book);
+Book.belongsTo(Author);
+
+app.get("/", (req, res) => {
+  res.send("hello");
 });
 
-export { sequelize };
-
-// sequelize
-//   .sync()
-//   .then((result) => console.log(result))
-//   .catch((err) => console.log(err));
+sequelize
+  .sync({ force: true })
+  .then(() => {
+    app.listen(port, host, function () {
+      console.log(`Server listens http://${host}:${port}`);
+    });
+  })
+  .catch((err) => console.log(err));
 
 // -----
 
@@ -19,9 +31,3 @@ export { sequelize };
 //   .catch((err) => console.error("Connection error: ", err));
 
 // -----
-
-// sequelize.sync().then(()=>{
-//   app.listen(3000, function(){
-//     console.log("Сервер ожидает подключения...");
-//   });
-// }).catch(err=>console.log(err));

@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../app.ts";
+import { sequelize } from "../config/database.ts";
 
 const Book = sequelize.define("book", {
   id: {
@@ -33,5 +33,7 @@ const Book = sequelize.define("book", {
     allowNull: false,
   },
 });
+
+// Book.belongsTo(Author);
 
 export { Book };
