@@ -1,13 +1,21 @@
-import express, { type ErrorRequestHandler } from "express";
+import { type ErrorRequestHandler } from "express";
+import { ErrorResponse } from "../lib/classes.ts";
 
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({
-    error: {
-      statusCode: 500,
-      message: "Something went wrong!",
-    },
+  let message = "Something went wrong!";
+
+  if (err instanceof Error && err.message) {
+    message = err.message;
+  }
+
+  const errorResponse = new ErrorResponse({
+    statusCode: 500,
+    message,
   });
+
+  res.status(500).json(errorResponse);
+
+  console.error(err.stack);
 };
 
 export { errorHandler };
