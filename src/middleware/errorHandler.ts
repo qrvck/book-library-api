@@ -10,7 +10,7 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   }
 
   if (err instanceof ValidationError) {
-    const message = err.errors.map((item) => item.message).join(", ");
+    const message = err.errors.map((item) => item.message).join("; ");
     const errorResponse = new ErrorResponse({
       statusCode: 400,
       message,

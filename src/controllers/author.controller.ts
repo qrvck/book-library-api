@@ -5,7 +5,7 @@ import type {
   AuthorParams,
   AuthorQueries,
 } from "../types/author.types.ts";
-import { AppError, ErrorResponse, SuccessResponse } from "../lib/classes.ts";
+import { SuccessResponse } from "../lib/classes.ts";
 import type { Attributes, CreationAttributes } from "sequelize";
 
 class AuthorController {
@@ -20,71 +20,39 @@ class AuthorController {
   }
 
   async findById(req: Request<AuthorParams>, res: Response) {
-    try {
-      const { id } = req.params;
-      const author = await authorService.findById(id);
-      const successResponse = new SuccessResponse(author);
+    const { id } = req.params;
+    const author = await authorService.findById(id);
+    const successResponse = new SuccessResponse(author);
 
-      res.json(successResponse);
-    } catch (error) {
-      if (error instanceof AppError) {
-        const errorResponse = new ErrorResponse(error);
-
-        res.status(error.statusCode).json(errorResponse);
-      }
-    }
+    res.json(successResponse);
   }
 
   async create(
     req: Request<unknown, unknown, CreationAttributes<AuthorModel>>,
     res: Response,
   ) {
-    try {
-      const author = await authorService.create(req.body);
-      const successResponse = new SuccessResponse(author);
+    const author = await authorService.create(req.body);
+    const successResponse = new SuccessResponse(author);
 
-      res.status(201).json(successResponse);
-    } catch (error) {
-      if (error instanceof AppError) {
-        const errorResponse = new ErrorResponse(error);
-
-        res.status(error.statusCode).json(errorResponse);
-      }
-    }
+    res.status(201).json(successResponse);
   }
 
   async update(
     req: Request<AuthorParams, unknown, Partial<Attributes<AuthorModel>>>,
     res: Response,
   ) {
-    try {
-      const { id } = req.params;
-      const author = await authorService.update(id, req.body);
-      const successResponse = new SuccessResponse(author);
+    const { id } = req.params;
+    const author = await authorService.update(id, req.body);
+    const successResponse = new SuccessResponse(author);
 
-      res.status(200).json(successResponse);
-    } catch (error) {
-      if (error instanceof AppError) {
-        const errorResponse = new ErrorResponse(error);
-
-        res.status(error.statusCode).json(errorResponse);
-      }
-    }
+    res.status(200).json(successResponse);
   }
 
   async delete(req: Request<AuthorParams>, res: Response) {
-    try {
-      const { id } = req.params;
-      await authorService.delete(id);
+    const { id } = req.params;
+    await authorService.delete(id);
 
-      res.status(204).send();
-    } catch (error) {
-      if (error instanceof AppError) {
-        const errorResponse = new ErrorResponse(error);
-
-        res.status(error.statusCode).json(errorResponse);
-      }
-    }
+    res.status(204).send();
   }
 }
 
