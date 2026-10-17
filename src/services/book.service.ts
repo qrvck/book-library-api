@@ -31,12 +31,15 @@ class BookService {
   }
 
   async create(book: CreationAttributes<BookModel>) {
+    const { id, ...safeBook } = book;
+
     await authorService.findById(book.authorId);
-    return await bookRepository.create(book);
+    return await bookRepository.create(safeBook);
   }
 
-  async update(id: Identifier, data: Partial<Attributes<BookModel>>) {
-    const [updatedCount] = await bookRepository.update(id, data);
+  async update(id: Identifier, book: Partial<Attributes<BookModel>>) {
+    const { id: _, ...safeBook } = book;
+    const [updatedCount] = await bookRepository.update(id, safeBook);
 
     if (updatedCount === 0) {
       throw new AppError({

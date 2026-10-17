@@ -29,11 +29,14 @@ class AuthorService {
   }
 
   async create(author: CreationAttributes<AuthorModel>) {
-    return await authorRepository.create(author);
+    const { id, ...safeAuthor } = author;
+
+    return await authorRepository.create(safeAuthor);
   }
 
-  async update(id: Identifier, data: Partial<Attributes<AuthorModel>>) {
-    const [updatedCount] = await authorRepository.update(id, data);
+  async update(id: Identifier, author: Partial<Attributes<AuthorModel>>) {
+    const { id: _, ...safeAuthor } = author;
+    const [updatedCount] = await authorRepository.update(id, safeAuthor);
 
     if (updatedCount === 0) {
       throw new AppError({

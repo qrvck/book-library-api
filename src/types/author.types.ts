@@ -22,7 +22,7 @@ interface AuthorModel extends Model<
   InferAttributes<AuthorModel>,
   InferCreationAttributes<AuthorModel>
 > {
-  id: Identifier;
+  id: CreationOptional<Identifier>;
   firstName: string;
   lastName: string;
   biography?: string;
