@@ -1,24 +1,42 @@
 import type {
+  BelongsToCreateAssociationMixin,
+  BelongsToGetAssociationMixin,
+  BelongsToSetAssociationMixin,
   CreationOptional,
   ForeignKey,
+  Identifier,
   InferAttributes,
   InferCreationAttributes,
   Model,
 } from "sequelize";
+import type { BaseParams, BaseQueries } from "./base.types.ts";
+import type { AuthorModel } from "./author.types.ts";
 
 interface BookModel extends Model<
   InferAttributes<BookModel>,
   InferCreationAttributes<BookModel>
 > {
-  id: CreationOptional<number>;
+  id: CreationOptional<Identifier>;
   title: string;
   isbn: string;
   publishYear?: string;
   genre?: string;
-  authorId?: ForeignKey<number>;
+  authorId: ForeignKey<Identifier>;
 
   createdAt: CreationOptional<Date>;
   updatedAt: CreationOptional<Date>;
+
+  // добавляем типизацию для вызова: Book.belongsTo(Author);
+  getAuthor: BelongsToGetAssociationMixin<AuthorModel>;
+  setAuthor: BelongsToSetAssociationMixin<AuthorModel, AuthorModel["id"]>;
+  createAuthor: BelongsToCreateAssociationMixin<AuthorModel>;
 }
 
-export type { BookModel };
+interface BookQueries extends BaseQueries {
+  genre?: string;
+  authorId?: number;
+}
+
+interface BookParams extends BaseParams {}
+
+export type { BookModel, BookQueries, BookParams };
