@@ -15,7 +15,7 @@ import type {
   HasManyCountAssociationsMixin,
   HasManyCreateAssociationMixin,
 } from "sequelize";
-import type { BaseQueries } from "./base.types.ts";
+import type { BaseParams, BaseQueries } from "./base.types.ts";
 import type { BookModel } from "./book.types.ts";
 
 interface AuthorModel extends Model<
@@ -45,9 +45,6 @@ interface AuthorModel extends Model<
 }
 
 interface AuthorQueries extends BaseQueries {}
-
-interface AuthorParams {
-  id: Identifier;
-}
+interface AuthorParams extends BaseParams {};
 
 export type { AuthorModel, AuthorQueries, AuthorParams };

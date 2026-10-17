@@ -58,7 +58,7 @@ class AuthorService {
           message: "Author not found!",
         });
       }
-      await authorRepository.update(id, data);
+
       return await this.findById(id);
     } catch (error) {
       if (error instanceof AppError) {
@@ -90,17 +90,7 @@ class AuthorService {
 
       return await author.destroy();
     } catch (error) {
-      if (error instanceof AppError) {
-        throw error;
-      }
-
-      throw new AppError({
-        statusCode: 400,
-        message:
-          error instanceof Error
-            ? error.message
-            : "Error while deleting an author!",
-      });
+      throw error;
     }
   }
 }

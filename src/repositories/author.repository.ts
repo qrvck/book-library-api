@@ -9,8 +9,8 @@ import { Author } from "../models/author.model.ts";
 import type { AuthorModel } from "../types/author.types.ts";
 
 class AuthorRepository {
-  async findAll(query: FindOptions<InferAttributes<AuthorModel>>) {
-    return await Author.findAll(query);
+  async findAll(options: FindOptions<InferAttributes<AuthorModel>>) {
+    return await Author.findAll(options);
   }
 
   async findById(id: Identifier) {
