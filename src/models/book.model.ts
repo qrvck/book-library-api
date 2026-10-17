@@ -1,7 +1,8 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../config/database.ts";
+import type { BookModel } from "../types/book.types.ts";
 
-const Book = sequelize.define("book", {
+const Book = sequelize.define<BookModel>("book", {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -31,6 +32,14 @@ const Book = sequelize.define("book", {
   authorId: {
     type: DataTypes.INTEGER,
     allowNull: false,
+  },
+
+  createdAt: {
+    type: DataTypes.DATE,
+  },
+
+  updatedAt: {
+    type: DataTypes.DATE,
   },
 });
 

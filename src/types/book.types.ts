@@ -16,6 +16,7 @@ interface BookModel extends Model<
   publishYear?: string;
   genre?: string;
   authorId?: ForeignKey<number>;
+
   createdAt: CreationOptional<Date>;
   updatedAt: CreationOptional<Date>;
 }
