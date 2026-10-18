@@ -6,7 +6,7 @@ const Author = sequelize.define<AuthorModel>("author", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    autoIncrementIdentity: true,
+    autoIncrement: true,
     allowNull: false,
   },
 
