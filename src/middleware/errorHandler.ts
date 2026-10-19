@@ -3,7 +3,8 @@ import { ValidationError } from 'sequelize';
 
 import { AppError, ErrorResponse } from '../lib/classes.ts';
 
-const errorHandler: ErrorRequestHandler = (err, req, res) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   if (err instanceof AppError) {
     const errorResponse = new ErrorResponse(err);
 
