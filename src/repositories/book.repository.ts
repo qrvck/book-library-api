@@ -4,10 +4,11 @@ import type {
   FindOptions,
   Identifier,
   InferAttributes,
-} from "sequelize";
-import { Book } from "../models/book.model.ts";
-import type { BookModel } from "../types/book.types.ts";
-import { Author } from "../models/author.model.ts";
+} from 'sequelize';
+
+import { Author } from '../models/author.model.ts';
+import { Book } from '../models/book.model.ts';
+import type { BookModel } from '../types/book.types.ts';
 
 class BookRepository {
   async findAll(options: FindOptions<InferAttributes<BookModel>>) {
@@ -27,7 +28,7 @@ class BookRepository {
   async update(id: Identifier, book: Partial<Attributes<BookModel>>) {
     return await Book.update(book, {
       where: { id },
-      fields: ["genre", "isbn", "publishYear", "title"],
+      fields: ['genre', 'isbn', 'publishYear', 'title'],
       limit: 1,
     });
   }

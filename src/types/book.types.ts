@@ -8,14 +8,12 @@ import type {
   InferAttributes,
   InferCreationAttributes,
   Model,
-} from "sequelize";
-import type { BaseParams, BaseQueries } from "./base.types.ts";
-import type { AuthorModel } from "./author.types.ts";
+} from 'sequelize';
 
-interface BookModel extends Model<
-  InferAttributes<BookModel>,
-  InferCreationAttributes<BookModel>
-> {
+import type { AuthorModel } from './author.types.ts';
+import type { BaseQueries } from './base.types.ts';
+
+interface BookModel extends Model<InferAttributes<BookModel>, InferCreationAttributes<BookModel>> {
   id: CreationOptional<Identifier>;
   title: string;
   isbn: string;
@@ -28,7 +26,7 @@ interface BookModel extends Model<
 
   // добавляем типизацию для вызова: Book.belongsTo(Author);
   getAuthor: BelongsToGetAssociationMixin<AuthorModel>;
-  setAuthor: BelongsToSetAssociationMixin<AuthorModel, AuthorModel["id"]>;
+  setAuthor: BelongsToSetAssociationMixin<AuthorModel, AuthorModel['id']>;
   createAuthor: BelongsToCreateAssociationMixin<AuthorModel>;
 }
 
@@ -37,6 +35,4 @@ interface BookQueries extends BaseQueries {
   authorId?: number;
 }
 
-interface BookParams extends BaseParams {}
-
-export type { BookModel, BookQueries, BookParams };
+export type { BookModel, BookQueries };

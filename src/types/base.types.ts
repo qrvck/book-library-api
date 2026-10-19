@@ -1,4 +1,4 @@
-import type { Identifier } from "sequelize";
+import type { Identifier } from 'sequelize';
 
 interface BaseQueries {
   page?: number;
@@ -9,4 +9,4 @@ interface BaseParams {
   id: Identifier;
 }
 
-export type { BaseQueries, BaseParams };
+export type { BaseParams, BaseQueries };

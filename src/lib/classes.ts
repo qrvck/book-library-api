@@ -8,7 +8,7 @@ class AppError extends Error {
     super(message);
     this.statusCode = statusCode;
     this.message = message;
-    this.name = "AppError";
+    this.name = 'AppError';
 
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, AppError);
@@ -40,4 +40,4 @@ class ErrorResponse {
   }
 }
 
-export { AppError, SuccessResponse, ErrorResponse };
+export { AppError, ErrorResponse, SuccessResponse };

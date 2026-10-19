@@ -1,9 +1,10 @@
-import type { Attributes, CreationAttributes, Identifier } from "sequelize";
-import type { BookModel, BookQueries } from "../types/book.types.ts";
-import { bookRepository } from "../repositories/book.repository.ts";
-import { AppError } from "../lib/classes.ts";
-import { authorService } from "./author.service.ts";
-import { getOffset } from "../lib/utils.ts";
+import type { Attributes, CreationAttributes, Identifier } from 'sequelize';
+
+import { AppError } from '../lib/classes.ts';
+import { getOffset } from '../lib/utils.ts';
+import { bookRepository } from '../repositories/book.repository.ts';
+import type { BookModel, BookQueries } from '../types/book.types.ts';
+import { authorService } from './author.service.ts';
 
 class BookService {
   async findAll(queries: BookQueries) {
@@ -23,7 +24,7 @@ class BookService {
     if (!book) {
       throw new AppError({
         statusCode: 404,
-        message: "Book not found!",
+        message: 'Book not found!',
       });
     }
 
@@ -31,20 +32,29 @@ class BookService {
   }
 
   async create(book: CreationAttributes<BookModel>) {
-    const { id, ...safeBook } = book;
+    const safeBook = {
+      ...book,
+    };
+
+    delete safeBook.id;
 
     await authorService.findById(book.authorId);
     return await bookRepository.create(safeBook);
   }
 
   async update(id: Identifier, book: Partial<Attributes<BookModel>>) {
-    const { id: _, ...safeBook } = book;
+    const safeBook = {
+      ...book,
+    };
+
+    delete safeBook.id;
+
     const [updatedCount] = await bookRepository.update(id, safeBook);
 
     if (updatedCount === 0) {
       throw new AppError({
         statusCode: 404,
-        message: "Book not found!",
+        message: 'Book not found!',
       });
     }
 

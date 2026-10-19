@@ -1,11 +1,13 @@
-import type { Attributes, CreationAttributes, Identifier } from "sequelize";
-import { authorRepository } from "../repositories/author.repository.ts";
-import type { AuthorModel, AuthorQueries } from "../types/author.types.ts";
-import { AppError } from "../lib/classes.ts";
-import { getOffset } from "../lib/utils.ts";
+import type { Attributes, CreationAttributes, Identifier } from 'sequelize';
+
+import { AppError } from '../lib/classes.ts';
+import { getOffset } from '../lib/utils.ts';
+import { authorRepository } from '../repositories/author.repository.ts';
+import type { AuthorModel } from '../types/author.types.ts';
+import type { BaseQueries } from '../types/base.types.ts';
 
 class AuthorService {
-  async findAll(queries: AuthorQueries) {
+  async findAll(queries: BaseQueries) {
     const { page = 1, size: limit = 100 } = queries;
     const offset = getOffset(page, limit);
 
@@ -21,7 +23,7 @@ class AuthorService {
     if (!author) {
       throw new AppError({
         statusCode: 404,
-        message: "Author not found!",
+        message: 'Author not found!',
       });
     }
 
@@ -29,19 +31,28 @@ class AuthorService {
   }
 
   async create(author: CreationAttributes<AuthorModel>) {
-    const { id, ...safeAuthor } = author;
+    const safeAuthor = {
+      ...author,
+    };
+
+    delete safeAuthor.id;
 
     return await authorRepository.create(safeAuthor);
   }
 
   async update(id: Identifier, author: Partial<Attributes<AuthorModel>>) {
-    const { id: _, ...safeAuthor } = author;
+    const safeAuthor = {
+      ...author,
+    };
+
+    delete safeAuthor.id;
+
     const [updatedCount] = await authorRepository.update(id, safeAuthor);
 
     if (updatedCount === 0) {
       throw new AppError({
         statusCode: 404,
-        message: "Author not found!",
+        message: 'Author not found!',
       });
     }
 
@@ -55,7 +66,7 @@ class AuthorService {
     if (count) {
       throw new AppError({
         statusCode: 409,
-        message: "Cannot delete author with existing books!",
+        message: 'Cannot delete author with existing books!',
       });
     }
 

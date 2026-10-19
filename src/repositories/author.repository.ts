@@ -4,9 +4,10 @@ import type {
   FindOptions,
   Identifier,
   InferAttributes,
-} from "sequelize";
-import { Author } from "../models/author.model.ts";
-import type { AuthorModel } from "../types/author.types.ts";
+} from 'sequelize';
+
+import { Author } from '../models/author.model.ts';
+import type { AuthorModel } from '../types/author.types.ts';
 
 class AuthorRepository {
   async findAll(options: FindOptions<InferAttributes<AuthorModel>>) {
@@ -24,7 +25,7 @@ class AuthorRepository {
   async update(id: Identifier, author: Partial<Attributes<AuthorModel>>) {
     return await Author.update(author, {
       where: { id },
-      fields: ["biography", "birthYear", "firstName", "lastName"],
+      fields: ['biography', 'birthYear', 'firstName', 'lastName'],
       limit: 1,
     });
   }

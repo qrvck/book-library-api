@@ -1,8 +1,9 @@
-import { type ErrorRequestHandler } from "express";
-import { ValidationError } from "sequelize";
-import { AppError, ErrorResponse } from "../lib/classes.ts";
+import { type ErrorRequestHandler } from 'express';
+import { ValidationError } from 'sequelize';
 
-const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+import { AppError, ErrorResponse } from '../lib/classes.ts';
+
+const errorHandler: ErrorRequestHandler = (err, req, res) => {
   if (err instanceof AppError) {
     const errorResponse = new ErrorResponse(err);
 
@@ -10,7 +11,7 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   }
 
   if (err instanceof ValidationError) {
-    const message = err.errors.map((item) => item.message).join("; ");
+    const message = err.errors.map((item) => item.message).join('; ');
     const errorResponse = new ErrorResponse({
       statusCode: 400,
       message,
@@ -21,15 +22,14 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
   const errorResponse = new ErrorResponse({
     statusCode: 500,
-    message:
-      err instanceof Error && err.message
-        ? err.message
-        : "Something went wrong!",
+    message: err instanceof Error && err.message ? err.message : 'Something went wrong!',
   });
 
   res.status(500).json(errorResponse);
 
-  console.error(err.stack);
+  if (err instanceof Error) {
+    console.error(err.stack);
+  }
 };
 
 export { errorHandler };
