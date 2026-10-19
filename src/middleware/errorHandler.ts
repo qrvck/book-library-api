@@ -9,6 +9,7 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     const errorResponse = new ErrorResponse(err);
 
     res.status(err.statusCode).json(errorResponse);
+    return;
   }
 
   if (err instanceof ValidationError) {
@@ -19,6 +20,7 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     });
 
     res.status(400).json(errorResponse);
+    return;
   }
 
   const errorResponse = new ErrorResponse({
@@ -27,10 +29,6 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   });
 
   res.status(500).json(errorResponse);
-
-  if (err instanceof Error) {
-    console.error(err.stack);
-  }
 };
 
 export { errorHandler };
