@@ -1,13 +1,15 @@
 class AppError extends Error {
-  public readonly statusCode: number;
-  public readonly message: string;
+  public statusCode: number;
+  public message: string;
 
-  constructor(params: { statusCode: number; message: string }) {
+  constructor(params: { statusCode: number; message: string | string[] }) {
     const { statusCode, message } = params;
 
-    super(message);
+    const stringMessage = Array.isArray(message) ? message.join('; ') : message;
+
+    super(stringMessage);
     this.statusCode = statusCode;
-    this.message = message;
+    this.message = stringMessage;
     this.name = 'AppError';
 
     if (Error.captureStackTrace) {

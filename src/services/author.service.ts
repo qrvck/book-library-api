@@ -1,7 +1,7 @@
 import type { Attributes, CreationAttributes, Identifier } from 'sequelize';
 
 import { AppError } from '../lib/classes.ts';
-import { getOffset } from '../lib/utils.ts';
+import { getOffset } from '../lib/getOffset.ts';
 import { authorRepository } from '../repositories/author.repository.ts';
 import type { AuthorModel } from '../types/author.types.ts';
 import type { BaseQueries } from '../types/base.types.ts';

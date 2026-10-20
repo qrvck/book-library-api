@@ -1,7 +1,7 @@
 import type { Attributes, CreationAttributes, Identifier } from 'sequelize';
 
 import { AppError } from '../lib/classes.ts';
-import { getOffset } from '../lib/utils.ts';
+import { getOffset } from '../lib/getOffset.ts';
 import { bookRepository } from '../repositories/book.repository.ts';
 import type { BookModel, BookQueries } from '../types/book.types.ts';
 import { authorService } from './author.service.ts';
