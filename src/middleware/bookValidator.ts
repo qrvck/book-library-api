@@ -21,7 +21,7 @@ const createRules: ValidationRule[] = [
   {
     key: 'isbn',
     required: true,
-    type: 'number',
+    type: 'string',
   },
 
   {

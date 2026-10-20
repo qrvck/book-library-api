@@ -9,9 +9,14 @@ import { Book } from './models/book.model.ts';
 import { authorRouter } from './routes/author.routes.ts';
 import { bookRouter } from './routes/book.routes.ts';
 
+const HOST = process.env.HOST;
+const PORT = Number(process.env.PORT);
+
+if (!HOST || !PORT) {
+  throw new Error('Express environment variables are not set!');
+}
+
 const app = express();
-const host = '127.0.0.1';
-const port = 7001;
 
 Author.hasMany(Book);
 Book.belongsTo(Author);
@@ -30,8 +35,8 @@ app.use(errorHandler);
 sequelize
   .sync()
   .then(() => {
-    app.listen(port, host, function () {
-      console.log(`Server listens http://${host}:${port}`);
+    app.listen(PORT, HOST, function () {
+      console.log(`Server listens http://${HOST}:${PORT}`);
     });
   })
   .catch((err) => console.log(err));
