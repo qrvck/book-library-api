@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 import express from 'express';
 
 import { sequelize } from './config/database.ts';
@@ -17,10 +19,6 @@ Book.belongsTo(Author);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-  res.send('hello');
-});
-
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'OK', message: 'Server is running' });
 });
@@ -37,12 +35,3 @@ sequelize
     });
   })
   .catch((err) => console.log(err));
-
-// -----
-
-// sequelize
-//   .authenticate()
-//   .then(() => console.log("Connected."))
-//   .catch((err) => console.error("Connection error: ", err));
-
-// -----
