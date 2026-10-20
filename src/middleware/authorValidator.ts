@@ -2,7 +2,22 @@ import type { NextFunction, Request, Response } from 'express';
 import type { Attributes } from 'sequelize';
 
 import { AppError } from '../lib/classes.ts';
+import { type ValidationRule, validator } from '../lib/validator.ts';
 import type { AuthorModel } from '../types/author.types.ts';
+
+const createRules: ValidationRule[] = [
+  {
+    key: 'firstName',
+    required: true,
+    type: 'string',
+  },
+
+  {
+    key: 'lastName',
+    required: true,
+    type: 'string',
+  },
+];
 
 class AuthorValidator {
   create = (
@@ -10,30 +25,16 @@ class AuthorValidator {
     res: Response,
     next: NextFunction
   ) => {
-    const VALIDATION_KEYS = ['firstName', 'lastName'] as const;
-    const author = req.body;
-    const validationErrors: string[] = [];
-
-    VALIDATION_KEYS.map((key) => {
-      const value = author[key];
-
-      if (!value) {
-        const error = `${key} is required field`;
-        validationErrors.push(error);
-      } else if (typeof value !== 'string') {
-        const error = `${key} must be string`;
-        validationErrors.push(error);
-      }
-    });
+    const validationErrors = validator(req.body, createRules);
 
     if (validationErrors.length) {
       throw new AppError({
         statusCode: 400,
-        message: validationErrors.join('; '),
+        message: validationErrors,
       });
+    } else {
+      next();
     }
-
-    next();
   };
 
   update = this.create;
