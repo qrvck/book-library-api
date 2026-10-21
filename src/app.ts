@@ -9,8 +9,8 @@ import { Book } from './models/book.model.ts';
 import { authorRouter } from './routes/author.routes.ts';
 import { bookRouter } from './routes/book.routes.ts';
 
-const HOST = process.env.HOST;
-const PORT = Number(process.env.PORT);
+const HOST = process.env.EXPRESS_HOST;
+const PORT = Number(process.env.EXPRESS_PORT);
 
 if (!HOST || !PORT) {
   throw new Error('Express environment variables are not set!');

@@ -2,11 +2,11 @@ services:
   app:
     build: ./
     environment:
-      NODE_ENV: production
-      HOST: 0.0.0.0
-      PORT: 3000
-      POSTGRES_HOST: postgres
-      POSTGRES_PORT: 5432
+      NODE_ENV: ${NODE_ENV}
+      EXPRESS_HOST: ${EXPRESS_HOST}
+      EXPRESS_PORT: ${EXPRESS_PORT}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_PORT: ${POSTGRES_PORT}
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
