@@ -1,6 +1,6 @@
-import type { BaseQueries } from '../types/base.types.ts';
+import type { IBaseQueries } from '../types/base.types.ts';
 
-function parseQueries<T extends BaseQueries>(query: T) {
+function parseQueries<T extends IBaseQueries>(query: T) {
   const { page = 1, size = 100, ...rest } = query;
 
   return {

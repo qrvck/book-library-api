@@ -2,10 +2,10 @@ import type { NextFunction, Request, Response } from 'express';
 import type { Attributes } from 'sequelize';
 
 import { AppError } from '../lib/classes.ts';
-import { type ValidationRule, validator } from '../lib/validator.ts';
-import type { BookModel } from '../types/book.types.ts';
+import { type IValidationRule, validator } from '../lib/validator.ts';
+import type { IBookModel } from '../types/book.types.ts';
 
-const createRules: ValidationRule[] = [
+const createRules: IValidationRule[] = [
   {
     key: 'title',
     required: true,
@@ -33,7 +33,7 @@ const createRules: ValidationRule[] = [
 
 class BookValidator {
   create = (
-    req: Request<unknown, unknown, Partial<Attributes<BookModel>>>,
+    req: Request<unknown, unknown, Partial<Attributes<IBookModel>>>,
     res: Response,
     next: NextFunction
   ) => {

@@ -8,10 +8,10 @@ import type {
 
 import { Author } from '../models/author.model.ts';
 import { Book } from '../models/book.model.ts';
-import type { BookModel } from '../types/book.types.ts';
+import type { IBookModel } from '../types/book.types.ts';
 
 class BookRepository {
-  async findAll(options: FindOptions<InferAttributes<BookModel>>) {
+  async findAll(options: FindOptions<InferAttributes<IBookModel>>) {
     return await Book.findAll(options);
   }
 
@@ -21,11 +21,11 @@ class BookRepository {
     });
   }
 
-  async create(book: CreationAttributes<BookModel>) {
+  async create(book: CreationAttributes<IBookModel>) {
     return await Book.create(book);
   }
 
-  async update(id: Identifier, book: Partial<Attributes<BookModel>>) {
+  async update(id: Identifier, book: Partial<Attributes<IBookModel>>) {
     return await Book.update(book, {
       where: { id },
       fields: ['genre', 'isbn', 'publishYear', 'title'],

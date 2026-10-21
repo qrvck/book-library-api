@@ -1,9 +1,9 @@
 import { DataTypes } from 'sequelize';
 
 import { sequelize } from '../config/database.ts';
-import type { BookModel } from '../types/book.types.ts';
+import type { IBookModel } from '../types/book.types.ts';
 
-const Book = sequelize.define<BookModel>('book', {
+const Book = sequelize.define<IBookModel>('book', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,

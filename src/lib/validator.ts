@@ -1,11 +1,11 @@
-interface ValidationRule {
+interface IValidationRule {
   key: string;
   required?: boolean;
   notEmpty?: boolean;
   type?: 'string' | 'number';
 }
 
-function validateValue(value: unknown, rule: ValidationRule) {
+function validateValue(value: unknown, rule: IValidationRule) {
   const { key, required, notEmpty = true, type } = rule;
 
   if (required && !value) {
@@ -17,7 +17,7 @@ function validateValue(value: unknown, rule: ValidationRule) {
   }
 }
 
-function validator(obj: Record<string, unknown>, rules: ValidationRule[]) {
+function validator(obj: Record<string, unknown>, rules: IValidationRule[]) {
   const errors: string[] = [];
 
   rules.forEach((rule) => {
@@ -34,4 +34,4 @@ function validator(obj: Record<string, unknown>, rules: ValidationRule[]) {
 }
 
 export { validator };
-export type { ValidationRule };
+export type { IValidationRule };

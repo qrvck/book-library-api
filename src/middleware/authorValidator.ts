@@ -2,10 +2,10 @@ import type { NextFunction, Request, Response } from 'express';
 import type { Attributes } from 'sequelize';
 
 import { AppError } from '../lib/classes.ts';
-import { type ValidationRule, validator } from '../lib/validator.ts';
-import type { AuthorModel } from '../types/author.types.ts';
+import { type IValidationRule, validator } from '../lib/validator.ts';
+import type { IAuthorModel } from '../types/author.types.ts';
 
-const createRules: ValidationRule[] = [
+const createRules: IValidationRule[] = [
   {
     key: 'firstName',
     required: true,
@@ -21,7 +21,7 @@ const createRules: ValidationRule[] = [
 
 class AuthorValidator {
   create = (
-    req: Request<unknown, unknown, Partial<Attributes<AuthorModel>>>,
+    req: Request<unknown, unknown, Partial<Attributes<IAuthorModel>>>,
     res: Response,
     next: NextFunction
   ) => {

@@ -1,6 +1,6 @@
 import type { Attributes, CreationAttributes, FindOptions, Identifier, Model } from 'sequelize';
 
-interface BaseRepository<T extends Model> {
+interface IBaseRepository<T extends Model> {
   findAll(options?: FindOptions<Attributes<T>>): Promise<T[]>;
   findById(id: Identifier): Promise<T | null>;
   create(data: CreationAttributes<T>): Promise<T>;
@@ -8,13 +8,13 @@ interface BaseRepository<T extends Model> {
   delete(id: Identifier): Promise<number>;
 }
 
-type BaseQueries = {
+interface IBaseQueries {
   page?: string;
   size?: string;
-};
+}
 
-interface BaseParams {
+interface IBaseParams {
   id: Identifier;
 }
 
-export type { BaseParams, BaseQueries, BaseRepository };
+export type { IBaseParams, IBaseQueries, IBaseRepository };

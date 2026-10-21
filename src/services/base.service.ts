@@ -1,12 +1,12 @@
 import type { Attributes, CreationAttributes, FindOptions, Identifier, Model } from 'sequelize';
 
 import { AppError } from '../lib/classes.ts';
-import type { BaseRepository } from '../types/base.types.ts';
+import type { IBaseRepository } from '../types/base.types.ts';
 
 export abstract class BaseService<T extends Model> {
-  protected readonly repository: BaseRepository<T>;
+  protected readonly repository: IBaseRepository<T>;
 
-  constructor(repository: BaseRepository<T>) {
+  constructor(repository: IBaseRepository<T>) {
     this.repository = repository;
   }
 

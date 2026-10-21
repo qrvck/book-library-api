@@ -5,11 +5,11 @@ import { SuccessResponse } from '../lib/classes.ts';
 import { getOffset } from '../lib/getOffset.ts';
 import { parseQueries } from '../lib/parseQueries.ts';
 import { authorService } from '../services/author.service.ts';
-import type { AuthorModel } from '../types/author.types.ts';
-import type { BaseParams, BaseQueries } from '../types/base.types.ts';
+import type { IAuthorModel } from '../types/author.types.ts';
+import type { IBaseParams, IBaseQueries } from '../types/base.types.ts';
 
 class AuthorController {
-  findAll = async (req: Request<unknown, unknown, unknown, BaseQueries>, res: Response) => {
+  findAll = async (req: Request<unknown, unknown, unknown, IBaseQueries>, res: Response) => {
     const { page, size, rest } = parseQueries(req.query);
     const offset = getOffset(Number(page), Number(size));
 
@@ -24,7 +24,7 @@ class AuthorController {
     res.json(successResponse);
   };
 
-  findById = async (req: Request<BaseParams>, res: Response) => {
+  findById = async (req: Request<IBaseParams>, res: Response) => {
     const { id } = req.params;
     const author = await authorService.findById(id);
     const successResponse = new SuccessResponse(author);
@@ -33,7 +33,7 @@ class AuthorController {
   };
 
   create = async (
-    req: Request<unknown, unknown, CreationAttributes<AuthorModel>>,
+    req: Request<unknown, unknown, CreationAttributes<IAuthorModel>>,
     res: Response
   ) => {
     const author = await authorService.create(req.body);
@@ -43,7 +43,7 @@ class AuthorController {
   };
 
   update = async (
-    req: Request<BaseParams, unknown, Partial<Attributes<AuthorModel>>>,
+    req: Request<IBaseParams, unknown, Partial<Attributes<IAuthorModel>>>,
     res: Response
   ) => {
     const { id } = req.params;
@@ -53,7 +53,7 @@ class AuthorController {
     res.status(200).json(successResponse);
   };
 
-  delete = async (req: Request<BaseParams>, res: Response) => {
+  delete = async (req: Request<IBaseParams>, res: Response) => {
     const { id } = req.params;
     await authorService.delete(id);
 

@@ -1,6 +1,6 @@
 declare global {
   namespace NodeJS {
-    interface ProcessEnv {
+    interface IProcessEnv {
       EXPRESS_HOST?: string;
       EXPRESS_PORT?: string;
 

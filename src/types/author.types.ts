@@ -16,11 +16,11 @@ import type {
   Model,
 } from 'sequelize';
 
-import type { BookModel } from './book.types.ts';
+import type { IBookModel } from './book.types.ts';
 
-interface AuthorModel extends Model<
-  InferAttributes<AuthorModel>,
-  InferCreationAttributes<AuthorModel>
+interface IAuthorModel extends Model<
+  InferAttributes<IAuthorModel>,
+  InferCreationAttributes<IAuthorModel>
 > {
   id: CreationOptional<Identifier>;
   firstName: string;
@@ -32,16 +32,16 @@ interface AuthorModel extends Model<
   updatedAt: CreationOptional<Date>;
 
   // добавляем типизацию для вызова: Author.hasMany(Book);
-  getBooks: HasManyGetAssociationsMixin<BookModel>;
-  addBook: HasManyAddAssociationMixin<BookModel, number>;
-  addBooks: HasManyAddAssociationsMixin<BookModel, number>;
-  setBooks: HasManySetAssociationsMixin<BookModel, number>;
-  removeBook: HasManyRemoveAssociationMixin<BookModel, number>;
-  removeBooks: HasManyRemoveAssociationsMixin<BookModel, number>;
-  hasBook: HasManyHasAssociationMixin<BookModel, number>;
-  hasBooks: HasManyHasAssociationsMixin<BookModel, number>;
+  getBooks: HasManyGetAssociationsMixin<IBookModel>;
+  addBook: HasManyAddAssociationMixin<IBookModel, number>;
+  addBooks: HasManyAddAssociationsMixin<IBookModel, number>;
+  setBooks: HasManySetAssociationsMixin<IBookModel, number>;
+  removeBook: HasManyRemoveAssociationMixin<IBookModel, number>;
+  removeBooks: HasManyRemoveAssociationsMixin<IBookModel, number>;
+  hasBook: HasManyHasAssociationMixin<IBookModel, number>;
+  hasBooks: HasManyHasAssociationsMixin<IBookModel, number>;
   countBooks: HasManyCountAssociationsMixin;
-  createBook: HasManyCreateAssociationMixin<BookModel, 'id' | 'title', 'isbn'>;
+  createBook: HasManyCreateAssociationMixin<IBookModel, 'id' | 'title', 'isbn'>;
 }
 
-export type { AuthorModel };
+export type { IAuthorModel };

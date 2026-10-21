@@ -1,9 +1,9 @@
 import { DataTypes } from 'sequelize';
 
 import { sequelize } from '../config/database.ts';
-import type { AuthorModel } from '../types/author.types.ts';
+import type { IAuthorModel } from '../types/author.types.ts';
 
-const Author = sequelize.define<AuthorModel>('author', {
+const Author = sequelize.define<IAuthorModel>('author', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,

@@ -7,10 +7,10 @@ import type {
 } from 'sequelize';
 
 import { Author } from '../models/author.model.ts';
-import type { AuthorModel } from '../types/author.types.ts';
+import type { IAuthorModel } from '../types/author.types.ts';
 
 class AuthorRepository {
-  async findAll(options: FindOptions<InferAttributes<AuthorModel>>) {
+  async findAll(options: FindOptions<InferAttributes<IAuthorModel>>) {
     return await Author.findAll(options);
   }
 
@@ -18,11 +18,11 @@ class AuthorRepository {
     return await Author.findByPk(id);
   }
 
-  async create(author: CreationAttributes<AuthorModel>) {
+  async create(author: CreationAttributes<IAuthorModel>) {
     return await Author.create(author);
   }
 
-  async update(id: Identifier, author: Partial<Attributes<AuthorModel>>) {
+  async update(id: Identifier, author: Partial<Attributes<IAuthorModel>>) {
     return await Author.update(author, {
       where: { id },
       fields: ['biography', 'birthYear', 'firstName', 'lastName'],
