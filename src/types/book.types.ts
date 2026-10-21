@@ -32,7 +32,7 @@ interface BookModel extends Model<InferAttributes<BookModel>, InferCreationAttri
 
 interface BookQueries extends BaseQueries {
   genre?: string;
-  authorId?: number;
+  authorId?: string;
 }
 
 export type { BookModel, BookQueries };

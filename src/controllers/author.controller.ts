@@ -2,13 +2,23 @@ import type { Request, Response } from 'express';
 import type { Attributes, CreationAttributes } from 'sequelize';
 
 import { SuccessResponse } from '../lib/classes.ts';
+import { getOffset } from '../lib/getOffset.ts';
+import { parseQueries } from '../lib/parseQueries.ts';
 import { authorService } from '../services/author.service.ts';
 import type { AuthorModel } from '../types/author.types.ts';
 import type { BaseParams, BaseQueries } from '../types/base.types.ts';
 
 class AuthorController {
   findAll = async (req: Request<unknown, unknown, unknown, BaseQueries>, res: Response) => {
-    const allAuthors = await authorService.findAll(req.query);
+    const { page, size, rest } = parseQueries(req.query);
+    const offset = getOffset(Number(page), Number(size));
+
+    const allAuthors = await authorService.findAll({
+      offset,
+      limit: Number(size),
+      where: rest,
+    });
+
     const successResponse = new SuccessResponse(allAuthors);
 
     res.json(successResponse);
